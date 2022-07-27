@@ -1,4 +1,3 @@
-
 /* Question 1:
  * You are provided with kth linked list. Write an algorithm to find median of merged linked list in sorter order.
 input: list 1= [2,4,7,5,10]
@@ -8,168 +7,197 @@ output: 5
 Explanation:
 after merging above kth linked list i.e three list in sorted order linked list become, [2,2,3,4,5,5,6,7,7,9,9,10]
  */
+
 package week_1;
-public class Solution_1{
 
-    Node head = null;
-    Node tail = null;
+import java.util.Arrays;
 
-    
+// import Singly linked list class
+import week_1.SinglyLinkedList.Node;
 
-    // for left side of the linkedlist 
-    Node left;
+public class Solution_1 {
 
-    // for right side of the linked list
-    Node right;
-    
+    // stores the linked list
+    SinglyLinkedList arr[];
 
-    static class Node{
+    // constructor
+    Solution_1(SinglyLinkedList arr[]) {
 
-        int data;
-        // Node head = null;
-        Node next;
-        Node(int data){
-            this.data = data;
-            this.next = null;
-        }
+        // initlization of the linked list
+        this.arr = arr;
     }
 
-    // function at first divide the given linked list into equal two halves right and left and then, sorts and merge
-    public Node mergeSort(Node head){
+    // 2. method that merges given linked lists by iterating all lists upto each
+    // element
+    SinglyLinkedList mergeAllLists() {
 
-        // // store head somewhere so that begining of right side can be known
-        // Node current = head;
+        // intilization of the first linekd list and that is our merged list as final
+        SinglyLinkedList first_list_final = arr[0];
 
-        // // for left side of the linkedlist 
-        // Node left;
+        // declare an object to store merged linked list
+        SinglyLinkedList merge_list;
 
-        // // for right side of the linked list
-        // Node right;
+        // initlization of start point
+        int i = 1;
 
+        // iterate the lists until the elments get merged
+        while (i < arr.length) {
 
-        // store head somewhere so that begining of right side can be known
-        Node current = head;
-        left = head;
-        right = head;
-        // if the head of the linked list is null or the given linked list has single element which does not need to be sorted then, return the same head
+            // merge the each lists with the first list by calling merge function
+            merge_list = mergeTwoLists(first_list_final, arr[i]);
+
+            // update the first_list_final to store the latest i.e final output
+            first_list_final = merge_list;
+
+            // move to next list by increasing i value
+            i++;
+        }
+
+        // returns the final merged list
+        return first_list_final;
+    }
+
+    // 3. method that merges two lists
+    SinglyLinkedList mergeTwoLists(SinglyLinkedList a, SinglyLinkedList b) {
+
+        // initilization a variabe to store merge two linked lists
+        SinglyLinkedList merge_list = new SinglyLinkedList();
+
+        // intilization a variable to store address of the head of the first linked list
+        Node first_list = a.head;
+
+        // intilization a variable to store address of the head of the second linked
+        // list
+        Node second_list = b.head;
+
+        // iterates the first linked list until we reach to the tail
+        while (first_list != null) {
+
+            // add current data to the merge_list
+            merge_list.addNode(first_list.data);
+
+            // update the first_list to iterate next element
+            first_list = first_list.next;
+        }
+
+        // iterates the second linked list until we reach to the tail
+        while (second_list != null) {
+
+            // add current data to the merge_list
+            merge_list.addNode(second_list.data);
+
+            // update the second_list to iterate next element
+            second_list = second_list.next;
+        }
+
+        // return the sorted result linked list.
+        return sortLinkedList(merge_list);
+    }
+
+    // 4. method to sort the merged linked list
+    SinglyLinkedList sortLinkedList(SinglyLinkedList list) {
+
+        // initialize the pointer to store head of current list
+        Node current = list.head;
+
+        // initialize the index pointer
+        Node index = null;
+
+        // declare the temporary variable
+        int temp;
+
+        // check if the head of the list is null then return null
+        if (list.head == null) {
+
+            // return null since head of the list is null
+            return null;
+        } else {
+
+            // iterate the list to move to the next node
+            while (current != null) {
+
+                // Node index will point to node next to current
+                index = current.next;
+
+                // iterate the list until we move to the tail, to compare each data
+                while (index != null) {
+
+                    // if current node's data is greater than index's node data, swap the data
+                    // betweeb them
+                    if (index.data < current.data) {
+
+                        // store data in temporary variable
+                        temp = current.data;
+
+                        // swap the data
+                        current.data = index.data;
+
+                        // update the data which is greater value
+                        index.data = temp;
+                    }
+
+                    // move to next pointer
+                    index = index.next;
+                }
+
+                // move to nex pointer of current
+                current = current.next;
+            }
+        }
+
+        // return the sorted list
+        return list;
+    }
+
+    // 1. calculate the median and return it
+    int Median() {
+
         
-        if(head == null || head.next == null){
-            return head;
-        }
+        // gets the median of the list
+        int median = (mergeAllLists().getSize() + 1) / 2;
 
-        // gets the middle number of the list, to divide equal halves
-        getMiddle(current, left, right);
-
-        // now divide and conquer the left side list until we get solvable or single unit state
-        left = mergeSort(left);
-
-        // now divide and conquer the right side list until we get solvable or single unit state
-        right = mergeSort(right);
-
-        // now merge both right and left side lists
-        head = mergeAll(left, right);
-
-        return head;
-    }
-
-
-
-    public void getMiddle(Node current, Node left, Node right){
-
-        // move the first node slowly
-        Node slow;
-
-        // move the second node faster so that when second node reaches last node (fast.next = null)
-        //  then, first node reaches in the middle of the list
-        Node fast;
-
-        slow = current;
-        fast = current;
-
-        while (fast.next != null && fast.next.next != null){
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        // starting point of the left list
-        // left = current;
-
-        // end point of the left side list
-
-
-        // starting point of the right list which is one step ahead than end point of left side
-        right = slow.next;
-
-        // breaking the list into left and right sides by making null where the slow reaches in the middle of the list
-        slow.next = null;
-    }
-
-
-    Node mergeAll(Node left, Node right){
-        Node sorted = null;
-
-        if(left == null){
-            return right;
-        }
-        if(right == null){
-            return left;
-        }
-        if(left.data <= right.data){
-            sorted = left;
-
-            sorted.next = mergeAll(sorted.next, right);
-        }
-
-        else {
-            sorted = right;
-            sorted.next = mergeAll(left, sorted.next);
-        }
-
-        return sorted;
-
+        // returns the calcualted median of the merged list
+        return median;
 
     }
 
+    public static void main(String[] args) {
+
+        // creating 3 linked lists
+        SinglyLinkedList[] arr = new SinglyLinkedList[3];
+        SinglyLinkedList L1 = new SinglyLinkedList();
+        SinglyLinkedList L2 = new SinglyLinkedList();
+        SinglyLinkedList L3 = new SinglyLinkedList();
+
+        // adding nodes to the linked lists
+        L1.addNode(2);
+        L1.addNode(4);
+        L1.addNode(7);
+        L1.addNode(5);
+        L1.addNode(10);
+
+        L2.addNode(3);
+        L2.addNode(2);
+        L2.addNode(7);
+        L2.addNode(9);
+
+        L3.addNode(12);
+        L3.addNode(5);
+        L3.addNode(6);
+        L3.addNode(9);
+        // passing the linked lists as arrays
+        arr[0] = L1;
+        arr[1] = L2;
+        arr[2] = L3;
+
+        // create instance of the class
+        Solution_1 sol = new Solution_1(arr);
 
 
-    // add data at the tail part of the list
-
-    public void append(int data){
-        Node newNode = new Node(data);
-
-        if(head == null){
-            head = tail = newNode;
-        }
-
-        tail.next = newNode;
-        tail = newNode;
+        // 
+        // intiliaze the vairable to store median and call the method to find median
+        int median = sol.Median();
+        System.out.println("Median of the list is : " + median);
     }
 
-    public void printList(){
-        Node current = head;
-        while(current != null){
-            System.out.print(current.data + " --> ");
-            current = current.next;
-        }
-        System.out.println();
-    }
-
-
-
-    public static void main(String[] args){
-
-        Solution_1 list1 = new Solution_1(); 
-        
-        list1.append(2);
-        list1.append(4);
-        list1.append(7);
-        list1.append(5);
-        list1.append(10);
-
-        list1.printList();
-        list1.head = list1.mergeSort(list1.head);
-        list1.printList();
-
-
-    }
 }
