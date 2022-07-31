@@ -39,8 +39,8 @@ public class Solution_5 {
             searchLetter = targetWord.charAt(i);
 
             // for checking the values
-            System.out.print(searchLetter + " ");
-            System.out.println();
+            // System.out.print(searchLetter + " ");
+            // System.out.println();
 
             // calls the function that searches whether letter is found in the word or not
             searching(mainArray);
@@ -66,7 +66,7 @@ public class Solution_5 {
             word = mainArray[j];
 
             // checking the value
-            System.out.println(word);
+            // System.out.println(word);
 
             // loop used to compare the letter of the word with letter of the targeted word
             for (int k = 0; k < mainArray[j].length(); k++) {
@@ -76,14 +76,14 @@ public class Solution_5 {
                 letter = mainArray[j].charAt(k);
 
                 // checking the values
-                System.out.print(letter + " ");
+                // System.out.print(letter + " ");
 
                 // compares each letter of the targed word with letter of the word of the main
                 // array
                 if (searchLetter == letter) {
 
                     // cheking the value
-                    System.out.println("Found " + searchLetter + " in " + word);
+                    // System.out.println("Found " + searchLetter + " in " + word);
 
                     // inserts in the array of subset but it still contains duplicate elements
                     // E.g frog ==> r ---> 'programming', o ---> 'programming', g ---> 'programming'
@@ -98,8 +98,8 @@ public class Solution_5 {
                 }
             }
             // for checking
-            System.out.println();
-            System.out.println();
+            // System.out.println();
+            // System.out.println();
         }
     }
 
