@@ -99,7 +99,6 @@ public class Solution_5 {
             }
             // for checking
             // System.out.println();
-            // System.out.println();
         }
     }
 
@@ -152,6 +151,8 @@ public class Solution_5 {
         // returns the length of the subset
         return count;
     }
+
+    // main method
 
     public static void main(String[] args) {
 
