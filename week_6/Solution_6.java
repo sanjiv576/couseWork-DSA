@@ -1,3 +1,11 @@
+/*
+ * word represents different digit from 0 to 9 and each
+* different characters must represent different digits. return if sum of number represented on array equals to the number
+represented by targeted word, otherwise return false. Input: words = ["THIS","IS","TOO"], result = "FUNNY" Output: true
+Explanation: THIS+IS+TOO=FUNNY
+9274+74+988==10336 as T=9, H=2, I=7, S=4, 0=8
+ */
+
 package week_6;
 import java.util.*;
 
