@@ -10,7 +10,7 @@ after merging above kth linked list i.e three list in sorted order linked list b
 
 package week_1;
 
-import java.util.Arrays;
+
 
 // import Singly linked list class
 import week_1.SinglyLinkedList.Node;
@@ -152,51 +152,72 @@ public class Solution_1 {
     // 1. calculate the median and return it
     int Median() {
 
+        // create instance of SinglyLinkedList class
+        SinglyLinkedList singly = new SinglyLinkedList();
+        singly.printList();
         
         // gets the median of the list
         int median = (mergeAllLists().getSize() + 1) / 2;
 
         // returns the calcualted median of the merged list
-        return median;
+        // return singly.getDataAtAnyPos(median);
+        return mergeAllLists().getDataAtAnyPos(median);
 
     }
 
+    
+
     public static void main(String[] args) {
 
-        // creating 3 linked lists
+        // create instance of SinglyeLinkedList class
         SinglyLinkedList[] arr = new SinglyLinkedList[3];
-        SinglyLinkedList L1 = new SinglyLinkedList();
-        SinglyLinkedList L2 = new SinglyLinkedList();
-        SinglyLinkedList L3 = new SinglyLinkedList();
 
-        // adding nodes to the linked lists
-        L1.addNode(2);
-        L1.addNode(4);
-        L1.addNode(7);
-        L1.addNode(5);
-        L1.addNode(10);
+        // create instance for the first linked list
+        SinglyLinkedList first_list = new SinglyLinkedList();
 
-        L2.addNode(3);
-        L2.addNode(2);
-        L2.addNode(7);
-        L2.addNode(9);
+        // create instance for the second linked list
+        SinglyLinkedList second_list = new SinglyLinkedList();
 
-        L3.addNode(12);
-        L3.addNode(5);
-        L3.addNode(6);
-        L3.addNode(9);
-        // passing the linked lists as arrays
-        arr[0] = L1;
-        arr[1] = L2;
-        arr[2] = L3;
+        // create instance for the third linked list
+        SinglyLinkedList third_list = new SinglyLinkedList();
+
+         // add nodes to the first linked lists
+        first_list.addNode(2);
+        first_list.addNode(4);
+        first_list.addNode(7);
+        first_list.addNode(5);
+        first_list.addNode(10);
+
+        // add nodes to the second linked lists
+        second_list.addNode(3);
+        second_list.addNode(2);
+        second_list.addNode(7);
+        second_list.addNode(9);
+
+        // add nodes to the third linked lists
+        third_list.addNode(12);
+        third_list.addNode(5);
+        third_list.addNode(6);
+        third_list.addNode(9);
+
+        // pass the first linked lists as arrays at index 0
+        arr[0] = first_list;
+
+        // pass the second linked lists as arrays at index 1
+        arr[1] = second_list;
+
+        // pass the third linked lists as arrays at index 2
+        arr[2] = third_list;
 
         // create instance of the class
         Solution_1 sol = new Solution_1(arr);
 
 
-        // 
+        
         // intiliaze the vairable to store median and call the method to find median
         int median = sol.Median();
+
+        // print the median
         System.out.println("Median of the list is : " + median);
     }
 
