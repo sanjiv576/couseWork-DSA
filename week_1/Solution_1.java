@@ -154,7 +154,6 @@ public class Solution_1 {
 
         // create instance of SinglyLinkedList class
         SinglyLinkedList singly = new SinglyLinkedList();
-        singly.printList();
         
         // gets the median of the list
         int median = (mergeAllLists().getSize() + 1) / 2;
