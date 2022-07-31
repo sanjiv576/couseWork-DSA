@@ -1,0 +1,4 @@
+From: 0 To: 3  Distance: 5 Km   Info: Water Tank to House 3
+From: 0 To: 4  Distance: 3 Km   Info: Water Tank to House 4
+From: 3 To: 4  Distance: 6 Km   Info: House 3
+
